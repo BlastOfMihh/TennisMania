@@ -1,0 +1,19 @@
+# https://github.com/docker/awesome-compose
+version : "3.8"
+
+services:
+  server:
+    build: ./backhand
+    container_name: backend_container
+    ports:
+      - 5000:5000 
+  frontend:
+    build: 
+      context: ./motivations
+      #no_cache: true
+    container_name: frontend_container
+    ports:
+      - 4200:4200
+    stdin_open: true
+    tty: true
+

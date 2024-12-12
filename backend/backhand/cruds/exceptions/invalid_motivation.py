@@ -1,0 +1,2 @@
+class InvalidMotivation(Exception):
+    pass
