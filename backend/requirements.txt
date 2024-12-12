@@ -1,3 +1,4 @@
+PyJWT==2.9.0
 Flask==3.0.3
 flask_restful==0.3.10
 Faker==24.9.0

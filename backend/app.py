@@ -4,7 +4,7 @@ from backhand import create_app
 testing=True
 
 if __name__=="__main__":
-    app, socketio=create_app()
+    app, socketio, _=create_app()
     # if testing:
     #     from test_service_founder import run
     #     run()

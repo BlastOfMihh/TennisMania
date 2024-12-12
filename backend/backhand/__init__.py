@@ -3,7 +3,8 @@ from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
-from backhand.cruds.controller import register_routes
+from backhand.cruds.users_controller import register_routes
+from backhand.cruds.training_sessions_controller import training_sessions_routes
 from backhand.cruds import bp 
 
 
@@ -31,15 +32,20 @@ def create_app():
     CORS(app)
 
     db.init_app(app)
-    from backhand.cruds.repo import Repo
-    from backhand.cruds.service import Service
+    from backhand.cruds.users_repo import UsersRepo
+    from backhand.cruds.training_sessions_repo import TrainingSessionsRepo
+    from backhand.cruds.users_service import UsersService
+    from backhand.cruds.training_sessions_service import TrainingSessionsService
     # app.register_blueprint(bp)
     jwt.init_app(app=app)
     socketio.init_app(app=app)
 
-    xrepo=Repo(db)
-    service=Service(xrepo)
-    register_routes(app,socketio, service)
+    users_repo=UsersRepo(db)
+    training_sessions_repo=TrainingSessionsRepo(db)
+    users_service=UsersService(users_repo)
+    training_sessions_service=TrainingSessionsService(training_sessions_repo)
+    register_routes(app,socketio, users_service)
+    training_sessions_routes(app,socketio, training_sessions_service)
 
     migrate=Migrate(app, db)
 
@@ -84,7 +90,7 @@ def create_app():
         #     return {'message': 'Login Success', 'access_token': access_token}
         # else:
         #     return {'message': 'Login Failed'}, 401
-        return {'registerd'}
+        return 'registerd'
         return {'registerd'},401
 
-    return app, socketio
+    return app, socketio, db
