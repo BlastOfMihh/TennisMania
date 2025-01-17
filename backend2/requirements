@@ -1,0 +1,9 @@
+Flask
+flask_restful
+SQLAlchemy
+flask-sqlalchemy
+Flask-Cors
+flask_socketio
+torch
+pandas
+requests
